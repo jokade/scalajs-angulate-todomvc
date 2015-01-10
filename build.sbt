@@ -30,6 +30,8 @@ lazy val js = project.
   settings(commonSettings: _*).
   settings(
     scalacOptions ++= angulateDebugFlags,
+    persistLauncher in Compile := true,
+    persistLauncher in Test := false,
     libraryDependencies ++= Seq(
       "biz.enef" %%% "scalajs-angulate" % "0.1-SNAPSHOT"
     )
