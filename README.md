@@ -1,2 +1,2 @@
 # scalajs-angulate-todomvc
-TodoMVC using scaljs-angulate
+TodoMVC using [scalajs-angulate](https://github.com/jokade/scalajs-angulate)
