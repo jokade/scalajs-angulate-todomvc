@@ -8,6 +8,11 @@ object TodoApp extends JSApp {
   override def main(): Unit = {
     val module = Angular.module("todomvc", Nil)
 
+    module.controllerOf[TodoCtrl]("TodoCtrl")
+
+    module.directiveOf[TodoItemDirective]
+
+    module.serviceOf[TaskService]
 
   }
 }

@@ -11,41 +11,41 @@
   <style>[ng-cloak] { display: none; }</style>
 </head>
 <body>
-<section id="todoapp" ng-controller="TodoCtrl">
+<section id="todoapp" ng-controller="TodoCtrl as ctrl">
   <header id="header" todo-test="test">
     <h1>todos</h1>
-    <form id="todo-form" ng-submit="controller.add()">
-      <input id="new-todo" placeholder="What needs to be done?" ng-model="newTitle" autofocus />
+    <form id="todo-form" ng-submit="ctrl.add()">
+      <input id="new-todo" placeholder="What needs to be done?" ng-model="ctrl.newTitle" autofocus />
     </form>
   </header>
-  <section id="main" ng-show="todos.length" ng-cloak>
-    <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="controller.markAll(allChecked)">
+  <section id="main" ng-show="ctrl.todos.length" ng-cloak>
+    <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="ctrl.markAll(allChecked)">
     <label for="toggle-all">Mark all as complete</label>
     <ul id="todo-list">
-      <li ng-repeat="todo in todos | filter:statusFilter track by $index"
+      <li ng-repeat="todo in ctrl.todos | filter:statusFilter track by $index"
           ng-class="{completed: todo.completed}">
-        <todo-item item="todo" on-change="controller.save(todo)" on-remove="controller.remove(todo)" />
+        <todo-item item="todo" on-change="ctrl.save(todo)" on-remove="ctrl.remove(todo)" />
       </li>
     </ul>
   </section>
-  <footer id="footer" ng-show="todos.length" ng-cloak>
-<span id="todo-count"><strong>{{remainingCount}}</strong>
+  <footer id="footer" ng-show="ctrl.todos.length" ng-cloak>
+<span id="todo-count"><strong>{{ctrl.remainingCount}}</strong>
 <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
 </span>
     <ul id="filters">
       <li>
-        <a ng-class="{selected: location.path() == '/'} " href="#/">All</a>
+        <a ng-class="{selected: ctrl.location.path() == '/'} " href="#/">All</a>
       </li>
       <li>
-        <a ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
+        <a ng-class="{selected: ctrl.location.path() == '/active'}" href="#/active">Active</a>
       </li>
       <li>
-        <a ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
+        <a ng-class="{selected: ctrl.location.path() == '/completed'}" href="#/completed">Completed</a>
       </li>
     </ul>
-    <button id="clear-completed" ng-click="controller.clearCompleted()"
-            ng-show="remainingCount < todos.length">
-      Clear completed ({{todos.length - remainingCount}})</button>
+    <button id="clear-completed" ng-click="ctrl.clearCompleted()"
+            ng-show="ctrl.remainingCount < ctrl.todos.length">
+      Clear completed ({{ctrl.todos.length - ctrl.remainingCount}})</button>
   </footer>
 </section>
 <footer id="info">
