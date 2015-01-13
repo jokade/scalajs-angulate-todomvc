@@ -1,6 +1,6 @@
 package todomvc.example
 
-import biz.enef.angular.Angular
+import biz.enef.angular.{Controller, Angular}
 
 import scala.scalajs.js.JSApp
 
@@ -11,6 +11,7 @@ object TodoApp extends JSApp {
     module.controllerOf[TodoCtrl]("TodoCtrl")
 
     module.directiveOf[TodoItemDirective]
+    module.directiveOf[TodoEscapeDirective]
 
     module.serviceOf[TaskService]
 

@@ -22,7 +22,7 @@ lazy val jvm = project.
   settings(commonSettings: _*).
   settings(
     libraryDependencies ++= Seq(
-      "de.karchedon" %% "surf-akka-rest" % "0.1-SNAPSHOT"
+      "biz.enef" %% "surf-akka-rest" % "0.1-SNAPSHOT"
     )
   )
   
