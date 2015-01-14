@@ -16,7 +16,16 @@ class TodoCtrl(taskService: TaskService, $location: Location, $scope: Scope) ext
   val location = $location
   var statusFilter = js.Object()
 
-  // todo: $scope.$watch
+  val watchPath = (path: Any, _:Any, scope:Scope) => {
+    statusFilter = path match {
+      case "/active" => js.Dynamic.literal(completed = false)
+      case "/completed" => js.Dynamic.literal(completed = true)
+      case _ => js.Dynamic.literal()
+    }
+  }
+
+  import scala.scalajs.js.Any.{fromFunction0, fromFunction3}
+  $scope.$watch(() => $location.path(), watchPath)
 
   taskService.findAll() onComplete {
     case Success(res) => todos = res
