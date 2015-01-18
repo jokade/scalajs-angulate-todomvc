@@ -71,6 +71,14 @@ class TodoCtrl(taskService: TaskService, $location: Location, $scope: Scope) ext
     }
   }
 
+  def markAll(completed: Boolean): Unit = taskService.markAll(completed) onComplete {
+    case Success(_) =>
+      todos.foreach( _.completed = completed )
+      update()
+    case Failure(ex) => handleError(ex)
+  }
+
+
   private def update(): Unit = {
     remainingCount = todos.count(! _.completed)
     allChecked = remainingCount == 0

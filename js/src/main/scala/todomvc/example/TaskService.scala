@@ -20,4 +20,6 @@ class TaskService($http: HttpService) extends Service {
 
   def clearCompleted() : HttpPromise[Unit] = $http.delete("/api/todos")
 
+  def markAll(completed: Boolean) : HttpPromise[Unit] = $http.post(s"/api/todos?markAll=$completed")
+
 }

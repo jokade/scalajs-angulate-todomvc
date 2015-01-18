@@ -14,6 +14,7 @@ class TodoService extends RESTService {
   }
 
   override def handlePOST(resource: RESTResource, params: Map[String, Any], body: String): Unit = resource match {
+    case _ if params.contains("markAll") => request ! markAll(params("markAll").toString.toBoolean)
     case _ => request ! OK(createTask(body))
   }
 
@@ -55,6 +56,11 @@ class TodoService extends RESTService {
   def clearCompleted() : RESTResponse = {
     todos = todos.filterNot( p => p._2.completed)
     RESTResponse.NoContent
+  }
+
+  def markAll(completed: Boolean) : RESTResponse = {
+    todos = todos.map( p => p.copy(_2 = p._2.copy(completed=completed)) )
+    OK( write(todos.values) )
   }
 }
 
