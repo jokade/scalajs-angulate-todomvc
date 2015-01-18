@@ -18,10 +18,10 @@ class TodoCtrl(taskService: TaskService, $location: Location, $scope: Scope) ext
   var remainingCount = 0
   var statusFilter = literal()
 
-  $scope.$watch(() => $location.path(), (path: UndefOr[String]) =>
-    statusFilter = path.toOption match {
-      case Some("/active") => literal(completed = false)
-      case Some("/completed") => literal(completed = true)
+  $scope.$watch(() => $location.path(), (path: String) =>
+    statusFilter = path match {
+      case "/active" => literal(completed = false)
+      case "/completed" => literal(completed = true)
       case _ => literal()
     }
   )
