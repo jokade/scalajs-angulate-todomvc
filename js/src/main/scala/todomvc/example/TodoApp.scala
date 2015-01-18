@@ -12,6 +12,7 @@ object TodoApp extends JSApp {
 
     module.directiveOf[TodoItemDirective]
     module.directiveOf[TodoEscapeDirective]
+    module.directiveOf[TodoFocusDirective]
 
     module.serviceOf[TaskService]
 

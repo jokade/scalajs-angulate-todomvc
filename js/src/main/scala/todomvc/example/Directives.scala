@@ -3,10 +3,11 @@
 package todomvc.example
 
 import biz.enef.angular._
-import biz.enef.angular.core.{Attributes, JQLite}
+import biz.enef.angular.core.{Timeout, Attributes, JQLite}
 import org.scalajs.dom.KeyboardEvent
 
 import scala.scalajs.js
+import scala.scalajs.js.annotation.{JSExportAll, JSExport}
 import scala.scalajs.js.{Function, UndefOr, Dictionary}
 
 class TodoItemDirective extends Directive {
@@ -18,32 +19,51 @@ class TodoItemDirective extends Directive {
     "fireOnChange" -> "&onChange"
   )
 
-  override type withController = TIDCtrl
-
+  override type withController = TodoItemDirective.Ctrl
 }
 
-class TIDCtrl extends DirectiveController {
-  js.Dynamic.global.console.log(this.asInstanceOf[js.Dynamic])
-  println(scope)
-  println(element)
-  println(attributes)
+object TodoItemDirective {
+
+  @JSExportAll
+  @ExportToScope("directive")
+  class Ctrl($scope: js.Dynamic) extends Controller {
+
+    def onEditStart(): Unit = {
+      $scope.editing = true
+      $scope.title = $scope.todo.title
+    }
+
+    def onEditEnd(): Unit = {
+      $scope.editing = false
+      $scope.todo.title = $scope.title
+
+      $scope.fireOnChange()
+    }
+
+    def onEditCancel(): Unit = {
+      $scope.editing = false
+      $scope.title = $scope.todo.title
+    }
+  }
 }
+
+
 
 class TodoEscapeDirective extends Directive {
 
   override def postLink(scope: Scope, elem: JQLite, attrs: Attributes, controller: js.Dynamic): Unit = {
-    js.Dynamic.global.console.log(elem)
     elem.on("keydown", (evt: KeyboardEvent)=>{
-      println("CALLED")
       if(evt.keyCode == 27) scope.$apply(attrs("todoEscape"))
     })
   }
 }
 
 
-class TodoFocusDirective extends Directive {
+class TodoFocusDirective($timeout: Timeout) extends Directive {
   override def postLink(scope: Scope, element: JQLite, attrs: Attributes, controller: js.Dynamic): Unit = {
+    val elem = element.head.asInstanceOf[js.Dynamic]
+
     scope.$watch(attrs("todoFocus"),
-      (newVal: UndefOr[js.Any]) => if(newVal.isDefined) println("OK"))
+      (newVal: UndefOr[js.Any]) => if(newVal.isDefined) $timeout( () => elem.focus() ) )
   }
 }

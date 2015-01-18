@@ -5,16 +5,17 @@ val commonSettings = Seq(
   version := "0.1-SNAPSHOT",
   scalaVersion := "2.11.2",
   scalacOptions ++= Seq("-deprecation","-feature","-Xlint"),
-  resolvers += "karchedon-repo" at "http://maven.karchedon.de/"
+  resolvers += "karchedon-repo" at "http://maven.karchedon.de/",
+  resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 )
 
 val angulateDebugFlags = Seq(
-  "runtimeLogging"
+  "runtimeLogging",
   //"ModuleMacros.debug",
   //"ControllerMacros.debug"
   //"DirectiveMacros.debug"
   //"ServiceMacros.debug"
-  //"HttpPromiseMacros.debug"
+  "HttpPromiseMacros.debug"
 ).map( f => s"-Xmacro-settings:biz.enef.angular.$f" )
 
 

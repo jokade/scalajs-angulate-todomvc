@@ -4,7 +4,7 @@ import surf.rest.RESTPath.IntNumber
 import surf.{ServiceRef, ServiceRefFactory}
 import surf.rest.RESTResource
 
-class TodoServiceResource(service: ServiceRef) extends RESTResource {
+case class TodoServiceResource(service: ServiceRef) extends RESTResource {
   override def name: String = "todos"
 
   override def handler(implicit factory: ServiceRefFactory): ServiceRef = service
@@ -22,3 +22,4 @@ case class TodoResource(id: Int)(service: ServiceRef) extends RESTResource {
 
   override def child(path: List[String]): Option[RESTResource] = None
 }
+

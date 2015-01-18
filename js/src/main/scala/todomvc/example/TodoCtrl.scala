@@ -6,20 +6,30 @@ import biz.enef.angular.core.Location
 import biz.enef.angular.{Scope, Controller}
 
 import scala.scalajs.js
+import scala.scalajs.js.UndefOr
+import js.Dynamic.literal
 import scala.util.{Failure, Success}
 
 class TodoCtrl(taskService: TaskService, $location: Location, $scope: Scope) extends Controller {
+  val $dynamicScope = $scope.asInstanceOf[js.Dynamic]
   var todos = js.Array[Task]()
   var newTitle = ""
   var allChecked = true
   var remainingCount = 0
-  val location = $location
-  var statusFilter = js.Object()
+  var statusFilter = literal()
 
-  // todo: $scope.$watch
+  $scope.$watch(() => $location.path(), (path: UndefOr[String]) =>
+    statusFilter = path.toOption match {
+      case Some("/active") => literal(completed = false)
+      case Some("/completed") => literal(completed = true)
+      case _ => literal()
+    }
+  )
 
   taskService.findAll() onComplete {
-    case Success(res) => todos = res
+    case Success(res) =>
+      todos = res
+      update()
     case Failure(ex) => handleError(ex)
   }
 
@@ -37,15 +47,25 @@ class TodoCtrl(taskService: TaskService, $location: Location, $scope: Scope) ext
     taskService.create(todo) onComplete {
       case Success(newTask) =>
         todos :+= newTask
+        newTitle = ""
         update()
       case Failure(ex) => handleError(ex)
     }
   }
 
   def remove(todo: Task): Unit = {
-    taskService.delete(todo) onComplete {
+    taskService.delete(todo).onComplete {
       case Success(_) =>
         todos = todos.filter( _.id != todo.id )
+        update()
+      case Failure(ex) => handleError(ex)
+    }
+  }
+
+  def clearCompleted(): Unit = {
+    taskService.clearCompleted() onComplete {
+      case Success(_) =>
+        todos = todos.filter( !_.completed )
         update()
       case Failure(ex) => handleError(ex)
     }
