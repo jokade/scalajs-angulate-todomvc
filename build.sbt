@@ -2,8 +2,8 @@ name := "scalajs-angulate-todomvc"
 
 val commonSettings = Seq(
   organization := "biz.enef",
-  version := "0.1-SNAPSHOT",
-  scalaVersion := "2.11.2",
+  version := "0.1",
+  scalaVersion := "2.11.5",
   scalacOptions ++= Seq("-deprecation","-feature","-Xlint"),
   resolvers += "karchedon-repo" at "http://maven.karchedon.de/",
   resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
