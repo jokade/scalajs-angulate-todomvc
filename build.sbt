@@ -2,7 +2,7 @@ name := "scalajs-angulate-todomvc"
 
 val commonSettings = Seq(
   organization := "biz.enef",
-  version := "0.1",
+  version := "0.2-SNAPSHOT",
   scalaVersion := "2.11.5",
   scalacOptions ++= Seq("-deprecation","-feature","-Xlint"),
   resolvers += "karchedon-repo" at "http://maven.karchedon.de/",
@@ -34,7 +34,7 @@ lazy val js = project.
     persistLauncher in Compile := true,
     persistLauncher in Test := false,
     libraryDependencies ++= Seq(
-      "biz.enef" %%% "scalajs-angulate" % "0.1"
+      "biz.enef" %%% "scalajs-angulate" % "0.2-SNAPSHOT"
     )
   ).
   enablePlugins(ScalaJSPlugin)
