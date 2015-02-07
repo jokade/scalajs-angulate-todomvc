@@ -11,47 +11,44 @@ import scala.scalajs.js.annotation.{JSExportAll, JSExport}
 import scala.scalajs.js.{Function, UndefOr, Dictionary}
 
 class TodoItemDirective extends Directive {
+  override type ControllerType = js.Dynamic
+  override type ScopeType = js.Dynamic
   override val templateUrl = "/web/todo-item.html"
+  override val controllerAs = "directive"
+
+
+  override def controller(ctrl: ControllerType, scope: ScopeType, elem: JQLite, attrs: Attributes): Unit = {
+    ctrl.onEditStart = () => {
+      scope.editing = true
+      scope.title = scope.todo.title
+    }
+
+    ctrl.onEditEnd = () => {
+      scope.editing = false
+      scope.todo.title = scope.title
+
+      scope.fireOnChange()
+    }
+
+    ctrl.onEditCancel = () => {
+      scope.editing = false
+      scope.title = scope.todo.title
+    }
+
+  }
 
   override def isolateScope: Dictionary[String] = js.Dictionary(
     "todo" -> "=item",
     "fireOnRemove" -> "&onRemove",
     "fireOnChange" -> "&onChange"
   )
-
-  override type withController = TodoItemDirective.Ctrl
 }
-
-object TodoItemDirective {
-
-  @JSExportAll
-  @ExportToScope("directive")
-  class Ctrl($scope: js.Dynamic) extends Controller {
-
-    def onEditStart(): Unit = {
-      $scope.editing = true
-      $scope.title = $scope.todo.title
-    }
-
-    def onEditEnd(): Unit = {
-      $scope.editing = false
-      $scope.todo.title = $scope.title
-
-      $scope.fireOnChange()
-    }
-
-    def onEditCancel(): Unit = {
-      $scope.editing = false
-      $scope.title = $scope.todo.title
-    }
-  }
-}
-
 
 
 class TodoEscapeDirective extends Directive {
-
-  override def postLink(scope: Scope, elem: JQLite, attrs: Attributes, controller: js.Dynamic): Unit = {
+  override type ScopeType = Scope
+  override type ControllerType = js.Dynamic
+  override def postLink(scope: ScopeType, elem: JQLite, attrs: Attributes, controller: js.Dynamic): Unit = {
     elem.on("keydown", (evt: KeyboardEvent)=>{
       if(evt.keyCode == 27) scope.$apply(attrs("todoEscape"))
     })
@@ -60,7 +57,9 @@ class TodoEscapeDirective extends Directive {
 
 
 class TodoFocusDirective($timeout: Timeout) extends Directive {
-  override def postLink(scope: Scope, element: JQLite, attrs: Attributes, controller: js.Dynamic): Unit = {
+  override type ControllerType = js.Dynamic
+  override type ScopeType = Scope
+  override def postLink(scope: ScopeType, element: JQLite, attrs: Attributes, controller: js.Dynamic): Unit = {
     val elem = element.head.asInstanceOf[js.Dynamic]
 
     scope.$watch(attrs("todoFocus"),

@@ -34,7 +34,7 @@ lazy val js = project.
     persistLauncher in Compile := true,
     persistLauncher in Test := false,
     libraryDependencies ++= Seq(
-      "biz.enef" %%% "scalajs-angulate" % "0.2-SNAPSHOT"
+      "biz.enef" %%% "scalajs-angulate" % "issue28-SNAPSHOT"
     )
   ).
   enablePlugins(ScalaJSPlugin)
