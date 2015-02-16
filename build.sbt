@@ -16,7 +16,7 @@ val angulateDebugFlags = Seq(
   //"DirectiveMacros.debug"
   //"ServiceMacros.debug"
   "HttpPromiseMacros.debug"
-).map( f => s"-Xmacro-settings:biz.enef.angular.$f" )
+).map( f => s"-Xmacro-settings:biz.enef.angulate.$f" )
 
 
 lazy val jvm = project.
@@ -34,7 +34,7 @@ lazy val js = project.
     persistLauncher in Compile := true,
     persistLauncher in Test := false,
     libraryDependencies ++= Seq(
-      "biz.enef" %%% "scalajs-angulate" % "issue28-SNAPSHOT"
+      "biz.enef" %%% "scalajs-angulate" % "0.2-SNAPSHOT"
     )
   ).
   enablePlugins(ScalaJSPlugin)

@@ -2,8 +2,8 @@
 // https://github.com/greencatsoft/scalajs-angular-todomvc/blob/master/scalajs/src/main/scala/todomvc/example/Directives.scala
 package todomvc.example
 
-import biz.enef.angular._
-import biz.enef.angular.core.{Timeout, Attributes, JQLite}
+import biz.enef.angulate._
+import biz.enef.angulate.core.{Timeout, Attributes, JQLite}
 import org.scalajs.dom.KeyboardEvent
 
 import scala.scalajs.js

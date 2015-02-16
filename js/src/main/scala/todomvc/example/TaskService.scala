@@ -2,8 +2,8 @@
 // https://github.com/greencatsoft/scalajs-angular-todomvc/blob/master/scalajs/src/main/scala/todomvc/example/TaskService.scala
 package todomvc.example
 
-import biz.enef.angular.Service
-import biz.enef.angular.core.{HttpConfig, HttpPromise, HttpService}
+import biz.enef.angulate.Service
+import biz.enef.angulate.core.{HttpConfig, HttpPromise, HttpService}
 
 import scala.scalajs.js
 import scala.scalajs.js.Date
