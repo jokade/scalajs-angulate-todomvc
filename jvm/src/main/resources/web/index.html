@@ -34,13 +34,13 @@
 </span>
     <ul id="filters">
       <li>
-        <a ng-class="{selected: ctrl.location.path() == '/'} " href="#/">All</a>
+        <a ng-class="{selected: ctrl.path() == '/'} " href="#/">All</a>
       </li>
       <li>
-        <a ng-class="{selected: ctrl.location.path() == '/active'}" href="#/active">Active</a>
+        <a ng-class="{selected: ctrl.path() == '/active'}" href="#/active">Active</a>
       </li>
       <li>
-        <a ng-class="{selected: ctrl.location.path() == '/completed'}" href="#/completed">Completed</a>
+        <a ng-class="{selected: ctrl.path() == '/completed'}" href="#/completed">Completed</a>
       </li>
     </ul>
     <button id="clear-completed" ng-click="ctrl.clearCompleted()"

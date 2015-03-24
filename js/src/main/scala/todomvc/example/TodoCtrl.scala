@@ -17,6 +17,7 @@ class TodoCtrl(taskService: TaskService, $location: Location, $scope: Scope) ext
   var allChecked = true
   var remainingCount = 0
   var statusFilter = literal()
+  def path() = $location.path()
 
   $scope.$watch(() => $location.path(), (path: String) =>
     statusFilter = path match {
