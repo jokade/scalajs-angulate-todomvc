@@ -2,8 +2,8 @@
 // https://github.com/greencatsoft/scalajs-angular-todomvc/blob/master/scalajs/src/main/scala/todomvc/example/TodoCtrl.scala
 package todomvc.example
 
-import biz.enef.angular.core.Location
-import biz.enef.angular.{Scope, Controller}
+import biz.enef.angulate.core.Location
+import biz.enef.angulate.{Scope, Controller}
 
 import scala.scalajs.js
 import scala.scalajs.js.UndefOr

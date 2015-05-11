@@ -2,21 +2,21 @@ name := "scalajs-angulate-todomvc"
 
 val commonSettings = Seq(
   organization := "biz.enef",
-  version := "0.1",
-  scalaVersion := "2.11.5",
+  version := "0.2",
+  scalaVersion := "2.11.6",
   scalacOptions ++= Seq("-deprecation","-feature","-Xlint"),
   resolvers += "karchedon-repo" at "http://maven.karchedon.de/",
   resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 )
 
 val angulateDebugFlags = Seq(
-  "runtimeLogging",
+  "runtimeLogging"
   //"ModuleMacros.debug",
   //"ControllerMacros.debug"
   //"DirectiveMacros.debug"
   //"ServiceMacros.debug"
-  "HttpPromiseMacros.debug"
-).map( f => s"-Xmacro-settings:biz.enef.angular.$f" )
+  //"HttpPromiseMacros.debug"
+).map( f => s"-Xmacro-settings:biz.enef.angulate.$f" )
 
 
 lazy val jvm = project.
@@ -34,7 +34,7 @@ lazy val js = project.
     persistLauncher in Compile := true,
     persistLauncher in Test := false,
     libraryDependencies ++= Seq(
-      "biz.enef" %%% "scalajs-angulate" % "0.1"
+      "biz.enef" %%% "scalajs-angulate" % "0.2"
     )
   ).
   enablePlugins(ScalaJSPlugin)
