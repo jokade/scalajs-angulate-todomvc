@@ -60,7 +60,7 @@ class TodoFocusDirective($timeout: Timeout) extends Directive {
   override type ControllerType = js.Dynamic
   override type ScopeType = Scope
   override def postLink(scope: ScopeType, element: JQLite, attrs: Attributes, controller: js.Dynamic): Unit = {
-    val elem = element.head.asInstanceOf[js.Dynamic]
+    val elem = element(0).asInstanceOf[js.Dynamic]
 
     scope.$watch(attrs("todoFocus"),
       (newVal: UndefOr[js.Any]) => if(newVal.isDefined) $timeout( () => elem.focus() ) )
