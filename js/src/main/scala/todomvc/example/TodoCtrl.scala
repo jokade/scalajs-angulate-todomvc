@@ -3,7 +3,7 @@
 package todomvc.example
 
 import biz.enef.angulate.core.Location
-import biz.enef.angulate.{Scope, Controller}
+import biz.enef.angulate.{Module, Scope, Controller}
 
 import scala.scalajs.js
 import scala.scalajs.js.UndefOr
@@ -87,4 +87,11 @@ class TodoCtrl(taskService: TaskService, $location: Location, $scope: Scope) ext
 
   private def handleError(ex: Throwable): Unit = js.Dynamic.global.console.error(s"An error has occurred: $ex")
 
+}
+
+
+object TodoCtrl {
+  def init(module : Module.RichModule) = {
+    module.controllerOf[TodoCtrl]("TodoCtrl")
+  }
 }
